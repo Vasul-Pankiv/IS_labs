@@ -6,15 +6,11 @@ known = Session.SPRING_SECURITY_CONTEXT??
     <#assign
     currentUser = Session.SPRING_SECURITY_CONTEXT.authentication.principal
     name = currentUser.getUsername()
-    surname = currentUser.getUsername()
-    isJudge = currentUser.isJudge()
-    isAdmin = currentUser.isAdmin()
     currentUserId = currentUser.getId()
     >
 <#else>
     <#assign
     name = "unknown"
-    isAdmin = false
     currentUserId = -1
     >
 </#if>

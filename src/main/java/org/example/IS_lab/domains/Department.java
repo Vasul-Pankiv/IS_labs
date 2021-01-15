@@ -1,5 +1,8 @@
 package org.example.IS_lab.domains;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -16,13 +19,15 @@ public class Department {
     @Size(max = 25, message = "Too long")
     private String name;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "hospital_id")
     private Hospital hospital;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Staff> staff;
-
+    @JsonManagedReference
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Patient> patients ;
 

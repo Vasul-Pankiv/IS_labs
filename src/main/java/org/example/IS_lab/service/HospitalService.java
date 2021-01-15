@@ -31,4 +31,9 @@ public class HospitalService {
     public void delete(Hospital hospital) {
         hospitalRepo.delete(hospital);
     }
+
+    public void update(Hospital hospital, String name) {
+        hospital.setName(name);
+        hospitalRepo.save(hospital);
+    }
 }

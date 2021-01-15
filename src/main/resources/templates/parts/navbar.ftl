@@ -1,5 +1,5 @@
 <#include "security.ftl">
-
+<#import "loginForm.ftl" as l>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="/">YOUR <b>health</b></a>
@@ -15,4 +15,7 @@
             </li>
         </ul>
     </div>
+    <#if currentUserId != -1>
+        <@l.logout/>
+    </#if>
 </nav>

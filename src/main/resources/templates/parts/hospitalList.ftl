@@ -1,5 +1,6 @@
-<#include "security.ftl">
-
+<h3>Hospital list:</h3>
+<a href="/hospital/add">Add new hospital</a>
+<h3></h3>
 <table class="table">
     <thead class="thead-dark">
     <tr>

@@ -9,3 +9,6 @@ insert into staff(name,surname,position, age, sex,department_id)
         ('Artem','Prokhvatylov','doctor',19,'MALE',2),
         ('Danylo','Syvak','doctor',19,'MALE',3),
         ('Yura','Malets','doctor',19,'MALE',4);
+
+insert into users(id, password, username)
+values(1,'admin','admin')

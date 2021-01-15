@@ -1,5 +1,7 @@
 package org.example.IS_lab.domains;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -17,9 +19,11 @@ public class Medicament {
     @Size(max = 25, message = "Too long")
     private String name;
 
+    @JsonBackReference
     @ManyToMany(mappedBy = "medicaments",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private Set<Patient> patients  = new HashSet<Patient>();
 
+    @JsonBackReference
     @ManyToMany(mappedBy = "medicaments",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private Set<Disease> diseases = new HashSet<Disease>();
     public long getId() {

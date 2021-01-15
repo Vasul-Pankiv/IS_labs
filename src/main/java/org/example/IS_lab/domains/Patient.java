@@ -1,5 +1,8 @@
 package org.example.IS_lab.domains;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -29,20 +32,24 @@ public class Patient {
     @Enumerated(EnumType.STRING)
     private Sex sex;
 
+    @JsonManagedReference
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "patients_diseases", joinColumns = {@JoinColumn(name = "patient_id")},
             inverseJoinColumns = {@JoinColumn(name = "disease_id")})
     private Set<Disease> diseases = new HashSet<Disease>();
 
+    @JsonManagedReference
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "patients_medicaments", joinColumns = {@JoinColumn(name = "patient_id")},
             inverseJoinColumns = {@JoinColumn(name = "medicament_id")})
     private Set<Medicament> medicaments = new HashSet<Medicament>();
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "department_id")
     private Department department;
 
+    @JsonBackReference
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "patients_staff", joinColumns = {@JoinColumn(name = "patient_id")},
             inverseJoinColumns = {@JoinColumn(name = "staff_id")})

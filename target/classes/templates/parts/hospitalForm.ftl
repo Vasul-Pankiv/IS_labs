@@ -9,7 +9,6 @@
                 </div>
             </div>
             <div class="form-group">
-                <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                 <button class="btn btn-primary" type="submit">save</button>
             </div>
         </form>

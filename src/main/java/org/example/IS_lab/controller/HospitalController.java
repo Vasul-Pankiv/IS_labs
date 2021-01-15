@@ -1,43 +1,40 @@
 package org.example.IS_lab.controller;
 
 import org.example.IS_lab.domains.Hospital;
-import org.example.IS_lab.service.HospitalService;
+import org.example.IS_lab.repos.HospitalRepo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("hospital")
 public class HospitalController {
     @Autowired
-    private HospitalService hospitalService;
+    private HospitalRepo hospitalRepo;
 
     @GetMapping
-    public String getHospital(@RequestParam(name = "id") Hospital hospital, Model model){
-        model.addAttribute("id",hospital);
-        return "hospital";
+    public List<Hospital> list() {
+        return hospitalRepo.findAll();
     }
-    @GetMapping("/delete")
-    public String deleteHospital(
-            @RequestParam("id") Hospital hospital
-    ) {
-        hospitalService.delete(hospital);
 
-        return "redirect:/";
+    @GetMapping("{id}")
+    public Hospital getOne(@PathVariable("id") Hospital hospital) {
+        return hospital;
     }
-    @GetMapping("/add")
-    public String addHospitalForm(){
-        return "hospitalForm";
+
+    @PutMapping("{id}")
+    public Hospital update(@PathVariable("id") Hospital hospitalFromDb,
+                           @RequestBody Hospital hospital) {
+        BeanUtils.copyProperties(hospitalFromDb, hospital, "id");
+        return hospitalRepo.save(hospitalFromDb);
     }
-    @PostMapping("/add")
-    public String addHospital(@Valid Hospital hospital){
-        hospitalService.addHospital(hospital);
-        return "redirect:/hospital";
+
+    @DeleteMapping("{id}")
+    public void delete(@PathVariable("id") Hospital hospital) {
+        hospitalRepo.delete(hospital);
     }
+
+
 }

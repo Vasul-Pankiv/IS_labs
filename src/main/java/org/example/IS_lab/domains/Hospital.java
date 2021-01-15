@@ -1,5 +1,8 @@
 package org.example.IS_lab.domains;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.ToString;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -8,6 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
+@ToString(of = {"id","name","departments"})
 public class Hospital {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,6 +22,7 @@ public class Hospital {
     @Size(max = 25, message = "Too long")
     private String name;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "hospital", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Department> departments = new ArrayList<Department>();
 
@@ -46,4 +51,6 @@ public class Hospital {
     public void setDepartments(List<Department> departments) {
         this.departments = departments;
     }
+
+
 }
