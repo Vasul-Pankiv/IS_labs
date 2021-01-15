@@ -4,6 +4,7 @@ import org.example.IS_lab.domains.Hospital;
 import org.example.IS_lab.repos.HospitalRepo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +20,10 @@ public class HospitalController {
         return hospitalRepo.findAll();
     }
 
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Hospital create(@RequestBody Hospital hospital){
+        return hospitalRepo.save(hospital);
+    }
     @GetMapping("{id}")
     public Hospital getOne(@PathVariable("id") Hospital hospital) {
         return hospital;
@@ -27,7 +32,7 @@ public class HospitalController {
     @PutMapping("{id}")
     public Hospital update(@PathVariable("id") Hospital hospitalFromDb,
                            @RequestBody Hospital hospital) {
-        BeanUtils.copyProperties(hospitalFromDb, hospital, "id");
+        BeanUtils.copyProperties(hospital, hospitalFromDb, "id");
         return hospitalRepo.save(hospitalFromDb);
     }
 

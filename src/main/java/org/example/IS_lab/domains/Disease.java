@@ -20,16 +20,48 @@ public class Disease {
     @Size(max = 25, message = "Too long")
     private String name;
 
-    @JsonManagedReference
+
     @ManyToMany(mappedBy = "diseases",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private Set<Patient> patients = new HashSet<Patient>();
 
-    @JsonBackReference
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "diseases_medicaments", joinColumns = {@JoinColumn(name = "disease_id")},
             inverseJoinColumns = {@JoinColumn(name = "medicament_id")})
     private Set<Medicament> medicaments = new HashSet<Medicament>();
 
     public Disease() {
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Set<Patient> getPatients() {
+        return patients;
+    }
+
+    public void setPatients(Set<Patient> patients) {
+        this.patients = patients;
+    }
+
+    public Set<Medicament> getMedicaments() {
+        return medicaments;
+    }
+
+    public void setMedicaments(Set<Medicament> medicaments) {
+        this.medicaments = medicaments;
     }
 }

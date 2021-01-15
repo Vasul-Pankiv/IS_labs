@@ -32,24 +32,22 @@ public class Patient {
     @Enumerated(EnumType.STRING)
     private Sex sex;
 
-    @JsonManagedReference
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "patients_diseases", joinColumns = {@JoinColumn(name = "patient_id")},
             inverseJoinColumns = {@JoinColumn(name = "disease_id")})
     private Set<Disease> diseases = new HashSet<Disease>();
 
-    @JsonManagedReference
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "patients_medicaments", joinColumns = {@JoinColumn(name = "patient_id")},
             inverseJoinColumns = {@JoinColumn(name = "medicament_id")})
     private Set<Medicament> medicaments = new HashSet<Medicament>();
 
-    @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "department_id")
     private Department department;
 
-    @JsonBackReference
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "patients_staff", joinColumns = {@JoinColumn(name = "patient_id")},
             inverseJoinColumns = {@JoinColumn(name = "staff_id")})
@@ -60,6 +58,10 @@ public class Patient {
 
     public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -108,5 +110,21 @@ public class Patient {
 
     public void setMedicaments(Set<Medicament> medicaments) {
         this.medicaments = medicaments;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    public Set<Staff> getStaff() {
+        return staff;
+    }
+
+    public void setStaff(Set<Staff> staff) {
+        this.staff = staff;
     }
 }

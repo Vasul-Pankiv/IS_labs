@@ -27,7 +27,7 @@ public class Department {
     @JsonManagedReference
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Staff> staff;
-    @JsonManagedReference
+
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Patient> patients ;
 
@@ -36,6 +36,10 @@ public class Department {
 
     public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -69,5 +73,4 @@ public class Department {
     public void setPatients(Set<Patient> patients) {
         this.patients = patients;
     }
-
 }

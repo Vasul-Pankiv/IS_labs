@@ -40,7 +40,7 @@ public class Staff {
     @JoinColumn(name = "department_id")
     private Department department;
 
-    @JsonManagedReference
+
     @ManyToMany(mappedBy = "staff",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private Set<Patient> patients  = new HashSet<Patient>();
 
@@ -49,6 +49,10 @@ public class Staff {
 
     public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {
